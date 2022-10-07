@@ -23,6 +23,10 @@ public class Player : NetworkBehaviour
 
     public float walkTime = 0.2f;
 
+    public GameObject playerWalkingHitBox;
+
+    // Collider[] hitColliders;
+
     public override void OnNetworkSpawn()
     {
         // if(!IsOwner){
@@ -103,18 +107,24 @@ public class Player : NetworkBehaviour
 
     private IEnumerator MovePlayer(Vector3 direction)
     {
-        canWalk = false;
-
         origPos = transform.position;
         targetPos = origPos + direction;
+        playerWalkingHitBox.transform.position = targetPos;
+
+        if (playerWalkingHitBox.GetComponent<PlayerWalkingHitBox>().isColliding)
+        {
+            Debug.Log(true);
+            yield break;
+        }
+        // yield break;
+        canWalk = false;
+
+
 
         float elapsedTime = 0;
 
         while (elapsedTime < walkTime)
         {
-            // while (origPos != targetPos)
-            // {
-
             transform.position = Vector3.Lerp(origPos, targetPos, elapsedTime / walkTime);
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -123,7 +133,6 @@ public class Player : NetworkBehaviour
         transform.position = targetPos;
 
         yield return new WaitForSeconds(walkTime);
-        // }
 
         canWalk = true;
     }

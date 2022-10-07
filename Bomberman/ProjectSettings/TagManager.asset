@@ -9,6 +9,8 @@ TagManager:
   - enemy
   - activateBox
   - bullet
+  - wall
+  - PlayerWalkingHitBox
   layers:
   - Default
   - TransparentFX
