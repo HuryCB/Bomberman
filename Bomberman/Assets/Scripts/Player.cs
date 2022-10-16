@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -16,17 +14,18 @@ public class Player : NetworkBehaviour
     public float runSpeed = 3.0f;
     public float speed = 0;
     bool idle = true;
-    private Vector3 origPos, targetPos;
-    private float timeToMove = 0.2f;
 
-    public bool canWalk = true;
+    // bool canPlantBomb = true;
+    public float plantingTime = 1f;
 
-    public float walkTime = 0.2f;
+    public GameObject bomb;
 
-    public GameObject playerWalkingHitBox;
+    public int amountOfAvailableBombs = 1;
 
-    // Collider[] hitColliders;
-
+    public bool canPlantBomb()
+    {
+        return amountOfAvailableBombs > 0;
+    }
     public override void OnNetworkSpawn()
     {
         // if(!IsOwner){
@@ -55,86 +54,67 @@ public class Player : NetworkBehaviour
         move();
 
         checkRun();
+
+        checkPlantBomb();
+    }
+
+    private void checkPlantBomb()
+    {
+        if (!canPlantBomb())
+        {
+            return;
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            StartCoroutine(plantBomb());
+        }
+    }
+
+    IEnumerator plantBomb()
+    {
+        amountOfAvailableBombs--;
+        // canPlantBomb();
+
+        plantBombServerRpc();
+        yield return new WaitForSeconds(plantingTime);
+        amountOfAvailableBombs++;
+        // canPlantBomb = true;
+        yield return null;
+    }
+    [ServerRpc(RequireOwnership = false)]
+    private void plantBombServerRpc()
+    {
+        var positionInGrid = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+
+        GameObject go = Instantiate(bomb, positionInGrid, Quaternion.identity);
+        plantingTime = go.GetComponent<Bomb>().timeToExplode;
+        go.GetComponent<NetworkObject>().Spawn();
     }
 
     private void move()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-        if (horizontal != 0 && canWalk)
+        if (rb.velocity.x != 0 || rb.velocity.y != 0)
         {
-            if (horizontal == 1)
-            {
-                StartCoroutine(MovePlayer(Vector3.right));
-            }
-            if (horizontal == -1)
-            {
-                StartCoroutine(MovePlayer(Vector3.left));
-            }
+            idle = false;
         }
-        if (vertical != 0 && canWalk)
+        else
         {
-            if (vertical == 1)
-            {
-                StartCoroutine(MovePlayer(Vector3.up));
-            }
-            if (vertical == -1)
-            {
-                StartCoroutine(MovePlayer(Vector3.down));
-            }
-        }
-        // if (rb.velocity.x != 0 || rb.velocity.y != 0) 
-        // {
-        //     idle = false;
-        // }
-        // else
-        // {
-        //     idle = true;
-        // }
-
-        // if (idle)
-        // {
-        //     stepSound.Stop();
-        // }
-        // else
-        // {
-        //     if (!stepSound.isPlaying)
-        //     {
-        //         stepSound.Play();
-        //     }
-        // }
-    }
-
-    private IEnumerator MovePlayer(Vector3 direction)
-    {
-        origPos = transform.position;
-        targetPos = origPos + direction;
-        playerWalkingHitBox.transform.position = targetPos;
-
-        if (playerWalkingHitBox.GetComponent<PlayerWalkingHitBox>().isColliding)
-        {
-            Debug.Log(true);
-            yield break;
-        }
-        // yield break;
-        canWalk = false;
-
-
-
-        float elapsedTime = 0;
-
-        while (elapsedTime < walkTime)
-        {
-            transform.position = Vector3.Lerp(origPos, targetPos, elapsedTime / walkTime);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            idle = true;
         }
 
-        transform.position = targetPos;
-
-        yield return new WaitForSeconds(walkTime);
-
-        canWalk = true;
+        if (idle)
+        {
+            stepSound.Stop();
+        }
+        else
+        {
+            if (!stepSound.isPlaying)
+            {
+                stepSound.Play();
+            }
+        }
     }
 
     private void checkRun()
@@ -156,7 +136,7 @@ public class Player : NetworkBehaviour
         {
             return;
         }
-        // rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+        rb.velocity = new Vector2(horizontal * speed, vertical * speed);
     }
 
     void OnTriggerStay2D(Collider2D col)
@@ -169,13 +149,19 @@ public class Player : NetworkBehaviour
         {
             if (Input.GetKey(KeyCode.E))
             {
-                Debug.Log("Oi");
                 // col.transform.parent.gameObject.GetComponent<NetworkObject>().Despawn();
                 // Destroy(col.transform.parent.gameObject);
                 GameObject door = col.transform.gameObject;
                 door.GetComponent<Door>().OpenDoor();
 
             }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag.Equals("explosion"))
+        {
+            Debug.Log("relou em explosion");
         }
     }
 

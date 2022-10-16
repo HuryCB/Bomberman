@@ -57,7 +57,6 @@ public class Gun : NetworkBehaviour
                 // }
                 // else
                 // {
-                Debug.Log("else trying to fire");
                 fireServerRpc(shotPoint.position, shotPoint.rotation);
                 lastTimeShot = 0;
                 // }

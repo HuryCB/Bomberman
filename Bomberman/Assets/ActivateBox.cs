@@ -20,7 +20,6 @@ public class ActivateBox : MonoBehaviour
     {
         if (collision.tag == "enemy")
         {
-            Debug.Log("enemy collided");
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             enemy.player = transform.parent.gameObject;
         }

@@ -11,6 +11,8 @@ TagManager:
   - bullet
   - wall
   - PlayerWalkingHitBox
+  - bomb
+  - explosion
   layers:
   - Default
   - TransparentFX

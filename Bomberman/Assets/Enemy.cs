@@ -43,7 +43,6 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "bullet")
         {
-            Debug.Log("collision");
 
         }
     }
@@ -52,7 +51,6 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "bullet")
         {
-            Debug.Log("trigger");
 
         }
     }

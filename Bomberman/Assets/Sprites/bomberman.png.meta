@@ -111,8 +111,8 @@ TextureImporter:
         y: 240
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.31}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -188,7 +188,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bomberman_4
+      name: bomb
       rect:
         serializedVersion: 2
         x: 64
@@ -355,6 +355,153 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: explosion_directional
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 224
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99aa29d7048de264c8aa6e9134414ecb
+      internalID: 2108226346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_center
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 208
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a671b8eb02d5af4eaf88b4af4c1328b
+      internalID: -1143241670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_8x8_dark_green
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 244
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da1ccb1a19f8b44eae076c151b70559
+      internalID: -963100424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_8x8_light_green
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 244
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06b2b4b605d544048a0684cf21de92a6
+      internalID: -447288470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_8x8_white
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 244
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 268379fa58889a0448448d86a84489a6
+      internalID: 1788080897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wall_concrete_16x16
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 208
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f140bbe8f819d541873cac65ac5d16a
+      internalID: -745472336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wall_wood_16x16
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 208
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa23265bb3321754d8af68c3c08c1ac3
+      internalID: 2083100452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -366,18 +513,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      explosion_center: -1143241670
+      wall_wood_16x16: 2083100452
       floor_dark_green: -1084118424
+      grid_8x8_white: 1788080897
       player: -252832047
       floor_light_green: 2100236754
       wall_wood: 953191136
       powerUp_fire: 570387776
+      bomb: 505364296
       floor_white: 506067518
       wall_frozen_wood: -431859139
+      explosion_directional: 2108226346
+      wall_concrete_16x16: -745472336
+      grid_8x8_dark_green: -963100424
       powerUp_base: -1244027241
       wall_frozen_concrete: -626162710
-      bomberman_4: 505364296
       wall_concrete: 1543716502
       powerUp_bomb: 1513160968
+      grid_8x8_light_green: -447288470
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

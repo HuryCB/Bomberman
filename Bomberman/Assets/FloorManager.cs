@@ -9,8 +9,9 @@ public class FloorManager : MonoBehaviour
     public GameObject floor1;
 
     public GameObject floorType;
-    public int width;
-    public int height;
+    public float width;
+    public float height;
+    public float tileDistance = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +22,9 @@ public class FloorManager : MonoBehaviour
 
     private void createFloor()
     {
-        for (int i = 0; i < width; i++)
+        for (float i = 0; i < width; i+=tileDistance)
         {
-            for (int j = 0; j < height; j++)
+            for (float j = 0; j < height; j+=tileDistance)
             {
                 Instantiate(floorType, new Vector3(i, j, 0), Quaternion.identity);
                 changeFloorType();
