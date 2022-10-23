@@ -42,6 +42,7 @@ public class Player : NetworkBehaviour
         }
         rb = GetComponent<Rigidbody2D>();
         stepSound = GetComponent<AudioSource>();
+        Debug.Log(OwnerClientId);
     }
 
     // Update is called once per frame
@@ -161,7 +162,7 @@ public class Player : NetworkBehaviour
     {
         if (other.tag.Equals("explosion"))
         {
-            Debug.Log("relou em explosion");
+            // Debug.Log("relou em explosion");
         }
     }
 

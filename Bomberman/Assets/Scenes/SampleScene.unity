@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 230527385}
   - component: {fileID: 230527386}
   m_Layer: 0
-  m_Name: ConnectionUI
+  m_Name: ConnectionUI/Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,6 +376,26 @@ MonoBehaviour:
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
       Prefab: {fileID: 4396757438003193877, guid: 6881b338237e36e4e98795846679dea0, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 443659379484683363, guid: b60ae08326ce2684a9b8144a64266ebb, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 8014176726142421923, guid: f8ba48bb403b4644a97d748a668fbd62, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 8258519791618867655, guid: af81e6b02c154f749b0986eaa4f0f173, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 8258519791618867655, guid: 0ab665eddc899cd44827eefbd0463675, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
@@ -751,7 +771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1001199775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,9 +784,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a83bd67710e36a4ab1c646b08ee4850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor0: {fileID: 8258519791618867655, guid: 0ab665eddc899cd44827eefbd0463675, type: 3}
-  floor1: {fileID: 8258519791618867655, guid: af81e6b02c154f749b0986eaa4f0f173, type: 3}
-  floorType: {fileID: 0}
+  floor0Dark: {fileID: 8258519791618867655, guid: 0ab665eddc899cd44827eefbd0463675, type: 3}
+  floor1Light: {fileID: 8258519791618867655, guid: af81e6b02c154f749b0986eaa4f0f173, type: 3}
+  woodWall: {fileID: 443659379484683363, guid: b60ae08326ce2684a9b8144a64266ebb, type: 3}
+  floorType: {fileID: 8258519791618867655, guid: af81e6b02c154f749b0986eaa4f0f173, type: 3}
   width: 10
   height: 10
   tileDistance: 1
