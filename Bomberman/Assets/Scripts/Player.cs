@@ -28,6 +28,7 @@ public class Player : NetworkBehaviour
     }
     public override void OnNetworkSpawn()
     {
+        GameManager.instance.players.Add(this);
         // if(!IsOwner){
         //     Destroy(this);
         // }
@@ -76,20 +77,21 @@ public class Player : NetworkBehaviour
         amountOfAvailableBombs--;
         // canPlantBomb();
 
-        plantBombServerRpc();
+        plantBombServerRpc(OwnerClientId);
         yield return new WaitForSeconds(plantingTime);
-        amountOfAvailableBombs++;
+        // amountOfAvailableBombs++;
         // canPlantBomb = true;
         yield return null;
     }
     [ServerRpc(RequireOwnership = false)]
-    private void plantBombServerRpc()
+    private void plantBombServerRpc(ulong id)
     {
         var positionInGrid = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
-
         GameObject go = Instantiate(bomb, positionInGrid, Quaternion.identity);
-        plantingTime = go.GetComponent<Bomb>().timeToExplode;
+        // plantingTime = go.GetComponent<Bomb>().timeToExplode;
+
         go.GetComponent<NetworkObject>().Spawn();
+        go.GetComponent<Bomb>().setOwnerServerRpc(id);
     }
 
     private void move()
