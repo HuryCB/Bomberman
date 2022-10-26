@@ -143,13 +143,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 878e296ec65ee1c499f51c60c7d096c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coll: {fileID: 3887088925946643418}
   timeToActiveCollider: 1
   centerExplosion: {fileID: 653909966445174800, guid: 9df665adbf7eacd489ef5d46a47438b7, type: 3}
   directionalExplosion: {fileID: 538034513505449742, guid: ce33c4cea0994d246b1d29359be1dbbc, type: 3}
   tileDistance: 0.5
   explosionForce: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: 4396757438003193882}
   timeToExplode: 1.5
+  networkObject: {fileID: 4396757438003193880}
+  isBeyingDestroyed: 0
   owner: 0
 --- !u!58 &3887088925946643418
 CircleCollider2D:

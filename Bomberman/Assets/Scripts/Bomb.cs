@@ -8,7 +8,7 @@ using System;
 public class Bomb : NetworkBehaviour
 {
 
-    CircleCollider2D coll;
+    public CircleCollider2D coll;
     public float timeToActiveCollider = 0.5f;
     public GameObject centerExplosion;
     public GameObject directionalExplosion;
@@ -17,6 +17,9 @@ public class Bomb : NetworkBehaviour
 
     public SpriteRenderer sprite;
     public float timeToExplode = 1f;
+    public NetworkObject networkObject;
+
+    public bool isBeyingDestroyed = false;
 
     // public Player owner;
     public ulong owner;
@@ -24,9 +27,9 @@ public class Bomb : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(owner);
-        coll = GetComponent<CircleCollider2D>();
-        sprite = GetComponent<SpriteRenderer>();
+        Debug.Log("is planting bomb");
+        // coll = GetComponent<CircleCollider2D>();
+        // sprite = GetComponent<SpriteRenderer>();
         // StartCoroutine(activeCollider());
         StartCoroutine(explodeCoroutine());
     }
@@ -56,7 +59,15 @@ public class Bomb : NetworkBehaviour
         // owner.amountOfAvailableBombs++;
         if (IsServer)
         {
+            if (isBeyingDestroyed)
+            {
+                return;
+            }
+            isBeyingDestroyed = true;
+            Debug.Log("is destroying bomb");
+            this.gameObject.SetActive(false);
             Destroy(this.gameObject);
+
             ClientRpcParams clientRpcParams = new ClientRpcParams
             {
                 Send = new ClientRpcSendParams
@@ -66,19 +77,20 @@ public class Bomb : NetworkBehaviour
             };
 
             IncreaseOwnerAmountOfAvailableBombsClientRpc(owner, clientRpcParams);
+
             createExplosionsServerRpc(positionInGrid);
             return;
         }
         else
-        {
-            // if (!IsServer)
             // {
-            //     return;
+            //     // if (!IsServer)
+            //     // {
+            //     //     return;
+            //     // }
+            //     destroyServerRpc();
+            //     createExplosionsServerRpc(positionInGrid);
             // }
-            destroyServerRpc();
-            createExplosionsServerRpc(positionInGrid);
-        }
-        return;
+            return;
         // }
     }
 
@@ -86,6 +98,7 @@ public class Bomb : NetworkBehaviour
     void destroyServerRpc()
     {
         Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
         Debug.Log(owner);
         ClientRpcParams clientRpcParams = new ClientRpcParams
         {
@@ -94,7 +107,7 @@ public class Bomb : NetworkBehaviour
                 TargetClientIds = new ulong[] { owner }
             }
         };
-        IncreaseOwnerAmountOfAvailableBombsClientRpc(owner, clientRpcParams);
+        // IncreaseOwnerAmountOfAvailableBombsClientRpc(owner, clientRpcParams);
     }
 
     [ClientRpc]
@@ -107,7 +120,7 @@ public class Bomb : NetworkBehaviour
         {
             if (player.OwnerClientId == id)
             {
-                Debug.Log("o player " + owner);
+                Debug.Log("o dono " + owner);
                 player.amountOfAvailableBombs++;
                 return;
             }
