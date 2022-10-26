@@ -56,6 +56,8 @@ obj/
 *.user
 *.unityproj
 *.booproj
+*.log
+**/*.log
 
 # Unity3D generated meta files
 *.pidb.meta
