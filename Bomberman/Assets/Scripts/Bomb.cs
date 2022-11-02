@@ -8,27 +8,32 @@ using System;
 public class Bomb : NetworkBehaviour
 {
 
-    CircleCollider2D coll;
+    public CircleCollider2D coll;
     public float timeToActiveCollider = 0.5f;
     public GameObject centerExplosion;
     public GameObject directionalExplosion;
     public float tileDistance = 0.5f;
-    public int explosionForce;
+    public int explosionForce = 1;
 
     public SpriteRenderer sprite;
     public float timeToExplode = 1f;
+    public NetworkObject networkObject;
+
+    public bool isBeyingDestroyed = false;
 
     // public Player owner;
-    public int owner;
+    public ulong owner;
 
     // Start is called before the first frame update
     void Start()
     {
-        coll = GetComponent<CircleCollider2D>();
-        sprite = GetComponent<SpriteRenderer>();
+        Debug.Log("is planting bomb");
+        // coll = GetComponent<CircleCollider2D>();
+        // sprite = GetComponent<SpriteRenderer>();
         // StartCoroutine(activeCollider());
         StartCoroutine(explodeCoroutine());
     }
+
 
     // IEnumerator activeCollider()
     // {
@@ -48,29 +53,117 @@ public class Bomb : NetworkBehaviour
     }
     void explode()
     {
+        Debug.Log("Força da explosão " + GameManager.instance.players[0].explosionForce);
         var positionInGrid = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
 
-        createExplosionsServerRpc(positionInGrid);
 
         // owner.amountOfAvailableBombs++;
         if (IsServer)
         {
+            if (isBeyingDestroyed)
+            {
+                return;
+            }
+            isBeyingDestroyed = true;
+            Debug.Log("is destroying bomb");
+            this.gameObject.SetActive(false);
             Destroy(this.gameObject);
+
+            ClientRpcParams clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new ulong[] { owner }
+                }
+            };
+
+            IncreaseOwnerAmountOfAvailableBombsClientRpc(owner, clientRpcParams);
+
+            createExplosionsServerRpc(positionInGrid);
             return;
         }
         else
-        {
-
-            destroyServerRpc();
+            // {
+            //     // if (!IsServer)
+            //     // {
+            //     //     return;
+            //     // }
+            //     destroyServerRpc();
+            //     createExplosionsServerRpc(positionInGrid);
+            // }
             return;
-        }
+        // }
     }
 
     [ServerRpc(RequireOwnership = false)]
     void destroyServerRpc()
     {
         Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
+        Debug.Log(owner);
+        ClientRpcParams clientRpcParams = new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { owner }
+            }
+        };
+        // IncreaseOwnerAmountOfAvailableBombsClientRpc(owner, clientRpcParams);
     }
+
+    [ClientRpc]
+    public void IncreaseOwnerAmountOfAvailableBombsClientRpc(ulong id, ClientRpcParams clientRpcParams = default)
+    {
+        Debug.Log("buscando dono " + owner);
+
+        // if (IsOwner) return;
+        foreach (var player in GameManager.instance.players)
+        {
+            if (player.OwnerClientId == id)
+            {
+                Debug.Log("o dono " + owner);
+                player.amountOfAvailableBombs++;
+                return;
+            }
+        }
+
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void setOwnerServerRpc(ulong id)
+    {
+        // ClientRpcParams clientRpcParams = new ClientRpcParams
+        // {
+        //     Send = new ClientRpcSendParams
+        //     {
+        //         TargetClientIds = new ulong[] { id }
+        //     }
+        // };
+        // setOwnerClientRpc(id, clientRpcParams);
+        this.owner = id;
+        
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void setExplosionForceServerRpc(int explosionForce)
+    {
+        // ClientRpcParams clientRpcParams = new ClientRpcParams
+        // {
+        //     Send = new ClientRpcSendParams
+        //     {
+        //         TargetClientIds = new ulong[] { id }
+        //     }
+        // };
+        // setOwnerClientRpc(id, clientRpcParams);
+        this.explosionForce = explosionForce;
+    }
+
+    // [ClientRpc]
+    // public void setOwnerClientRpc(ulong id, ClientRpcParams clientRpcParams = default)
+    // {
+    //     Debug.Log("setado no client " + id);
+    //     this.owner = id;
+    // }
 
     [ServerRpc(RequireOwnership = false)]
     void createExplosionsServerRpc(Vector3 positionInGrid)
