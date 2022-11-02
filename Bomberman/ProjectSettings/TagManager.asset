@@ -13,6 +13,7 @@ TagManager:
   - PlayerWalkingHitBox
   - bomb
   - explosion
+  - PowerUp
   layers:
   - Default
   - TransparentFX

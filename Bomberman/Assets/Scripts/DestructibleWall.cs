@@ -7,6 +7,7 @@ using System;
 
 public class DestructibleWall : NetworkBehaviour
 {
+    public List<GameObject> loot;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +23,15 @@ public class DestructibleWall : NetworkBehaviour
     {
         if (other.tag.Equals("explosion"))
         {
-            Debug.Log("parede colidiu com explosap");
+            Debug.Log("parede colidiu com explosao");
             if (IsServer)
             {
                 Debug.Log("destruindo objeto");
+                foreach (var item in loot)
+                {
+                    GameObject go = Instantiate(item, this.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                    go.GetComponent<NetworkObject>().Spawn();
+                }
                 Destroy(this.gameObject);
                 return;
             }
@@ -40,6 +46,11 @@ public class DestructibleWall : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void DestroyServerRpc()
     {
+        foreach (var item in loot)
+        {
+            GameObject go = Instantiate(item, this.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+            go.GetComponent<NetworkObject>().Spawn();
+        }
         Destroy(this.gameObject);
     }
 }

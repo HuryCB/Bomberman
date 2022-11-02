@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public abstract class PowerUp : MonoBehaviour
+using Unity.Netcode;
+public abstract class PowerUp : NetworkBehaviour
 {
+    public PowersEnum powerUpEnum;
     // Start is called before the first frame update
     void Start()
     {

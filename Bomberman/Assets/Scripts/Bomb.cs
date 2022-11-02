@@ -13,7 +13,7 @@ public class Bomb : NetworkBehaviour
     public GameObject centerExplosion;
     public GameObject directionalExplosion;
     public float tileDistance = 0.5f;
-    public int explosionForce;
+    public int explosionForce = 1;
 
     public SpriteRenderer sprite;
     public float timeToExplode = 1f;
@@ -53,6 +53,7 @@ public class Bomb : NetworkBehaviour
     }
     void explode()
     {
+        Debug.Log("Força da explosão " + GameManager.instance.players[0].explosionForce);
         var positionInGrid = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
 
 
@@ -131,15 +132,30 @@ public class Bomb : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void setOwnerServerRpc(ulong id)
     {
-        ClientRpcParams clientRpcParams = new ClientRpcParams
-        {
-            Send = new ClientRpcSendParams
-            {
-                TargetClientIds = new ulong[] { id }
-            }
-        };
+        // ClientRpcParams clientRpcParams = new ClientRpcParams
+        // {
+        //     Send = new ClientRpcSendParams
+        //     {
+        //         TargetClientIds = new ulong[] { id }
+        //     }
+        // };
         // setOwnerClientRpc(id, clientRpcParams);
         this.owner = id;
+        
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void setExplosionForceServerRpc(int explosionForce)
+    {
+        // ClientRpcParams clientRpcParams = new ClientRpcParams
+        // {
+        //     Send = new ClientRpcSendParams
+        //     {
+        //         TargetClientIds = new ulong[] { id }
+        //     }
+        // };
+        // setOwnerClientRpc(id, clientRpcParams);
+        this.explosionForce = explosionForce;
     }
 
     // [ClientRpc]

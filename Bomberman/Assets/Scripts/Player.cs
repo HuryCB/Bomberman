@@ -22,6 +22,9 @@ public class Player : NetworkBehaviour
 
     public int amountOfAvailableBombs = 1;
 
+    public int explosionForce = 1;
+
+
     public bool canPlantBomb()
     {
         return amountOfAvailableBombs > 0;
@@ -77,14 +80,14 @@ public class Player : NetworkBehaviour
         amountOfAvailableBombs--;
         // canPlantBomb();
 
-        plantBombServerRpc(OwnerClientId);
+        plantBombServerRpc(OwnerClientId, explosionForce);
         yield return new WaitForSeconds(plantingTime);
         // amountOfAvailableBombs++;
         // canPlantBomb = true;
         yield return null;
     }
     [ServerRpc(RequireOwnership = false)]
-    private void plantBombServerRpc(ulong id)
+    private void plantBombServerRpc(ulong id, int explosiongForce)
     {
         var positionInGrid = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
         GameObject go = Instantiate(bomb, positionInGrid, Quaternion.identity);
@@ -92,6 +95,7 @@ public class Player : NetworkBehaviour
 
         go.GetComponent<NetworkObject>().Spawn();
         go.GetComponent<Bomb>().setOwnerServerRpc(id);
+        go.GetComponent<Bomb>().setExplosionForceServerRpc(explosiongForce);
     }
 
     private void move()
@@ -162,10 +166,17 @@ public class Player : NetworkBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag.Equals("explosion"))
+        switch (other.tag)
         {
-            // Debug.Log("relou em explosion");
+            case "PowerUp":
+                Destroy(other.gameObject);
+                PowerUp powerup = other.gameObject.GetComponent<PowerUp>();
+
+                this.explosionForce++;
+                Debug.Log("relou no power up: " + powerup);
+                break;
         }
+
     }
 
     // [ClientRpc]
