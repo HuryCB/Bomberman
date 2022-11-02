@@ -169,9 +169,9 @@ public class Player : NetworkBehaviour
         switch (other.tag)
         {
             case "PowerUp":
-                Destroy(other.gameObject);
-                PowerUp powerup = other.gameObject.GetComponent<PowerUp>();
 
+                PowerUp powerup = other.gameObject.GetComponent<PowerUp>();
+                powerup.destroyServerRpc();
                 this.explosionForce++;
                 Debug.Log("relou no power up: " + powerup);
                 break;

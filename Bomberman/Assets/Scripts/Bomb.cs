@@ -19,7 +19,7 @@ public class Bomb : NetworkBehaviour
     public float timeToExplode = 1f;
     public NetworkObject networkObject;
 
-    public bool isBeyingDestroyed = false;
+    public bool isBeingDestroyed = false;
 
     // public Player owner;
     public ulong owner;
@@ -60,11 +60,11 @@ public class Bomb : NetworkBehaviour
         // owner.amountOfAvailableBombs++;
         if (IsServer)
         {
-            if (isBeyingDestroyed)
+            if (isBeingDestroyed)
             {
                 return;
             }
-            isBeyingDestroyed = true;
+            isBeingDestroyed = true;
             Debug.Log("is destroying bomb");
             this.gameObject.SetActive(false);
             Destroy(this.gameObject);

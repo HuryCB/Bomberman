@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5329855041813784291}
   - component: {fileID: 5329855041813784301}
   - component: {fileID: 5329855041813784294}
+  - component: {fileID: 5415375323035925744}
   m_Layer: 0
   m_Name: FirePowerUp
   m_TagString: PowerUp
@@ -128,3 +129,18 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &5415375323035925744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329855041813784300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09c84397eb19ae40b87ed0a59bff180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpEnum: 0
+  isBeingDestroyed: 0
+  powerUpEnum: 0

@@ -24,4 +24,13 @@ public abstract class PowerUp : NetworkBehaviour
             Debug.Log("colidiu com player");
         }
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void destroyServerRpc()
+    {
+        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
+
+        // IncreaseOwnerAmountOfAvailableBombsClientRpc(owner, clientRpcParams);
+    }
 }
