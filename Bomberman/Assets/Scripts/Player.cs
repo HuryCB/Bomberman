@@ -44,6 +44,7 @@ public class Player : NetworkBehaviour
         {
             return;
         }
+        this.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         stepSound = GetComponent<AudioSource>();
         Debug.Log(OwnerClientId);
@@ -169,9 +170,9 @@ public class Player : NetworkBehaviour
         switch (other.tag)
         {
             case "PowerUp":
-                Destroy(other.gameObject);
-                PowerUp powerup = other.gameObject.GetComponent<PowerUp>();
 
+                PowerUp powerup = other.gameObject.GetComponent<PowerUp>();
+                powerup.destroyServerRpc();
                 this.explosionForce++;
                 Debug.Log("relou no power up: " + powerup);
                 break;

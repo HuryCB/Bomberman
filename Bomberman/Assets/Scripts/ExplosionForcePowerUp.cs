@@ -6,11 +6,11 @@ using Unity.Netcode;
 public class ExplosionForcePowerUp : PowerUp
 {
     public bool isBeingDestroyed = false;
-    public new PowersEnum powerUpEnum = PowersEnum.ExplosionForce;
+    // public new PowersEnum powerUpEnum = PowersEnum.ExplosionForce;
     // Start is called before the first frame update
     void Start()
     {
-
+        this.powerUpEnum = PowersEnum.ExplosionForce;
     }
 
     // Update is called once per frame
@@ -43,10 +43,10 @@ public class ExplosionForcePowerUp : PowerUp
         // Destroy(this.gameObject);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    void destroyServerRpc()
-    {
-        this.gameObject.SetActive(false);
-        Destroy(this.gameObject);
-    }
+    // [ServerRpc(RequireOwnership = false)]
+    // void destroyServerRpc()
+    // {
+    //     this.gameObject.SetActive(false);
+    //     Destroy(this.gameObject);
+    // }
 }
