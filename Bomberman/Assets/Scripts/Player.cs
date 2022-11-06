@@ -44,6 +44,7 @@ public class Player : NetworkBehaviour
         {
             return;
         }
+        this.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         stepSound = GetComponent<AudioSource>();
         Debug.Log(OwnerClientId);
