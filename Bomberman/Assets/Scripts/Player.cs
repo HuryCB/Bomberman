@@ -37,6 +37,11 @@ public class Player : NetworkBehaviour
         // }
     }
 
+    public override void OnNetworkDespawn()
+    {
+        GameManager.instance.players.Remove(this);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +49,7 @@ public class Player : NetworkBehaviour
         {
             return;
         }
-        this.gameObject.SetActive(false);
+        this.enabled = false;
         rb = GetComponent<Rigidbody2D>();
         stepSound = GetComponent<AudioSource>();
         Debug.Log(OwnerClientId);

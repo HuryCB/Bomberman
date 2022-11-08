@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-public class FloorManager : MonoBehaviour
+public class FloorManager : NetworkBehaviour
 {
     public GameObject floor0Dark;
     public GameObject floor1Light;
     public GameObject woodWall;
+
+    public GameObject undestroyableWall;
 
     public GameObject floorType;
     public float width;
@@ -19,27 +21,72 @@ public class FloorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!IsServer)
+        {
+            return;
+        }
+
         floorType = floor0Dark;
+        createWorldWall();
         createFloor();
+    }
+    private void createWorldWall()
+    {
+        for (float x = -1; x < width+1; x += tileDistance)
+        {
+            for (float y = -1; y < height+1; y += tileDistance)
+            {
+                if((y > -1 && y < height ) && (x > -1 && x < width))
+                {
+                    Debug.Log("avoid pos " + x + "," + y);
+                    continue;
+                }
+                GameObject go = Instantiate(undestroyableWall, new Vector3(x, y, 0), Quaternion.identity);
+                go.GetComponent<NetworkObject>().Spawn();
+            }
+        }
     }
 
     private void createFloor()
     {
-        for (float i = 0; i < width; i += tileDistance)
+        for (float x = 0; x < width; x += tileDistance)
         {
-            for (float j = 0; j < height; j += tileDistance)
+            //if(x == width - 1)
+            //{
+            //    continue;
+            //}
+            for (float y = 0; y < height; y += tileDistance)
             {
-                GameObject go = Instantiate(floorType, new Vector3(i, j, 0), Quaternion.identity);
+                //if(y == height - 1)
+                //{
+                //    continue;
+                //}
+                GameObject go = Instantiate(floorType, new Vector3(x, y, 0), Quaternion.identity);
                 go.GetComponent<NetworkObject>().Spawn();
-                if (floorType.Equals(floor0Dark))
-                {
-                    go = Instantiate(woodWall, new Vector3(i, j, 0), Quaternion.identity);
-                    go.GetComponent<NetworkObject>().Spawn();
-                }
                 changeFloorType();
+                //if (floorType.Equals(floor0Dark))
+                //{
+                    if((x == 0 || x == width-1) && biggerYConditionToAvoid(y,height))
+                    {
+                        continue;
+                    }else if((x == 1 || x == width -2) && yConditionToAvoid(y, height))
+                    {
+                        continue;
+                    }
+                    go = Instantiate(woodWall, new Vector3(x, y, 0), Quaternion.identity);
+                    go.GetComponent<NetworkObject>().Spawn();
+                //}
             }
             changeFloorType();
         }
+    }
+    private bool biggerYConditionToAvoid(float y, float height)
+    {
+        return yConditionToAvoid(y, height) || y == 1 || y == height - 2;
+    }
+    private bool yConditionToAvoid(float y, float height)
+    {
+        return (y == 0 || y == height-1);
     }
 
     private void changeFloorType()
