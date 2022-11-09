@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
+using System;
 
 public class GameManager : NetworkBehaviour
 {
@@ -50,8 +51,29 @@ public class GameManager : NetworkBehaviour
     {
         foreach (Player player in players)
         {
-            player.enabled = true;
+           
+            ClientRpcParams clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new ulong[] { player.OwnerClientId }
+                }
+            };
+            enablePlayerClientRpc(player.OwnerClientId, clientRpcParams);
         }
     }
 
+    [ClientRpc]
+    private void enablePlayerClientRpc(ulong id, ClientRpcParams clientRpcParams)
+    {
+        foreach (var player in GameManager.instance.players)
+        {
+            if (player.OwnerClientId == id)
+            {
+                Debug.Log("habilitando" + id);
+                player.enabled = true;
+                return;
+            }
+        }
+    }
 }
