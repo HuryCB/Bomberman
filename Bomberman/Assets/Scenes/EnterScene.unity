@@ -871,25 +871,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
-      propertyPath: spawnPositions.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
-      propertyPath: spawnPositions.Array.data[0].y
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
-      propertyPath: spawnPositions.Array.data[1].x
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
-      propertyPath: spawnPositions.Array.data[1].y
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
-      propertyPath: spawnPositions.Array.data[3].x
-      value: 9
+    - target: {fileID: 890698785, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 474337181
       objectReference: {fileID: 0}
     - target: {fileID: 8251026040978832025, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
       propertyPath: m_RootOrder
