@@ -209,7 +209,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipText: {fileID: 1674363541}
   portText: {fileID: 1254472222}
-  m_NetworkManager: {fileID: 0}
   m_Transport: {fileID: 80126197}
 --- !u!4 &80126194
 Transform:
@@ -872,6 +871,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 890698785, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 474337181
+      objectReference: {fileID: 0}
     - target: {fileID: 8251026040978832025, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1479,7 +1482,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 935644769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 80126193}
+        m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
+        m_MethodName: StartClient
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &935644769
 MonoBehaviour:
   m_ObjectHideFlags: 0

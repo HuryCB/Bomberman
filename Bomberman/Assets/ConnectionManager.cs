@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using UnityEngine.SceneManagement;
 
 public class ConnectionManager : MonoBehaviour
 {
@@ -12,12 +13,12 @@ public class ConnectionManager : MonoBehaviour
     public TMP_InputField ipText;
     public TMP_InputField portText;
 
-    public NetworkManager m_NetworkManager;
+    NetworkManager m_NetworkManager;
     public UnityTransport m_Transport;
 
     string m_PortString = "7777";
     string m_ConnectAddress = "127.0.0.1";
-    string ipAuxiliar = "127.0.0.1";
+    //string ipAuxiliar = "127.0.0.1";
 
     private void Awake()
     {
@@ -34,10 +35,17 @@ public class ConnectionManager : MonoBehaviour
         
     }
 
+    public void StartClient()
+    {
+        getConnectionData();
+        this.m_NetworkManager.StartClient();
+    }
+
     public void StartHost()
     {
         getConnectionData();
-        
+        this.m_NetworkManager.StartHost();
+        m_NetworkManager.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
     }
 
     public void getConnectionData()
@@ -46,11 +54,11 @@ public class ConnectionManager : MonoBehaviour
         //m_ConnectAddress = this.ipText.text.ToString();
         m_PortString = this.portText.text.ToString();
 
-        Debug.Log(m_Transport.ConnectionData.Address);
-        ipAuxiliar = (string)this.ipText.text.ToString().Trim();
+        //Debug.Log(m_Transport.ConnectionData.Address);
+        m_ConnectAddress = (string)this.ipText.text.ToString().Trim();
         
-        Debug.Log(ipAuxiliar);
-        Debug.Log(string.Equals(m_Transport.ConnectionData.Address, ipAuxiliar));
+        //Debug.Log(ipAuxiliar);
+        //Debug.Log(string.Equals(m_Transport.ConnectionData.Address, ipAuxiliar));
         m_Transport.ConnectionData.ServerListenAddress = "0.0.0.0";
         if (ushort.TryParse(m_PortString, out ushort port))
         {
@@ -59,10 +67,10 @@ public class ConnectionManager : MonoBehaviour
         else
         {
             m_Transport.SetConnectionData(m_ConnectAddress, 7777);
-          
         }
 
-        this.m_NetworkManager.StartHost();
+      
+        //NetworkSceneManager
         //this.m_ConnectAddress = this.ipText.text;
         //this.m_PortString = this.portText.text;
         //Debug.Log(this.m_ConnectAddress);
