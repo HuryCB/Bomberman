@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.R))
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("EnterScene");
         }
     }
 }

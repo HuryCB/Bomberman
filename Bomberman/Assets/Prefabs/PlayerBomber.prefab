@@ -236,6 +236,7 @@ MonoBehaviour:
   bomb: {fileID: 4396757438003193877, guid: 6881b338237e36e4e98795846679dea0, type: 3}
   amountOfAvailableBombs: 1
   explosionForce: 1
+  sprite: {fileID: 893669861089309317}
 --- !u!61 &893669861089309312
 BoxCollider2D:
   m_ObjectHideFlags: 0
