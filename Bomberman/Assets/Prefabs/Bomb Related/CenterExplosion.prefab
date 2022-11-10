@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4822701172180783294}
   m_Layer: 4
   m_Name: CenterExplosion
-  m_TagString: Untagged
+  m_TagString: explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

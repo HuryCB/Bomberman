@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class SpanwerManager : MonoBehaviour
+public class SpanwerManager : NetworkBehaviour
 {
     // Start is called before the first frame update
     public static SpanwerManager instance;
@@ -22,11 +23,15 @@ public class SpanwerManager : MonoBehaviour
     }
     void Start()
     {
+      //if (IsServer)
+      //  {
+      //  }
         availablePositions = new List<Vector2>(spawnPositions);
         foreach(Player player in GameManager.instance.players)
         {
             var posInArray = Random.Range(0, availablePositions.Count);
-            player.transform.position = availablePositions[posInArray];
+            player.transform.position = spawnPositions[posInArray];
+            Debug.Log(availablePositions);
             availablePositions.RemoveAt(posInArray);
         }
     }

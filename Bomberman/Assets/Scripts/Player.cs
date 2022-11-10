@@ -23,6 +23,7 @@ public class Player : NetworkBehaviour
     public int amountOfAvailableBombs = 1;
 
     public int explosionForce = 1;
+    public SpriteRenderer sprite;
 
 
     public bool canPlantBomb()
@@ -181,6 +182,9 @@ public class Player : NetworkBehaviour
                 this.explosionForce++;
                 Debug.Log("relou no power up: " + powerup);
                 break;
+            case TagsEnum.explosion:
+                this.Die();
+                break;
         }
 
     }
@@ -189,7 +193,12 @@ public class Player : NetworkBehaviour
     // private void OpenDoorClientRpc(){
 
     // }
-
+    public void Die()
+    {
+        //this.enabled = false;
+        //sprite.enabled = false;
+        this.gameObject.SetActive(false);
+    }
 
 
 }

@@ -172,16 +172,53 @@ public class Bomb : NetworkBehaviour
         go.GetComponent<NetworkObject>().Spawn();
         for (int i = 1; i < (explosionForce * 2) + 1; i++)
         {
-            go = Instantiate(directionalExplosion, new Vector3(positionInGrid.x + (i * tileDistance), positionInGrid.y), Quaternion.Euler(new Vector3(0, 0, 0)));
-            go.GetComponent<NetworkObject>().Spawn();
-            go = Instantiate(directionalExplosion, new Vector3(positionInGrid.x - (i * tileDistance), positionInGrid.y), Quaternion.Euler(new Vector3(0, 0, 0)));
-            go.GetComponent<NetworkObject>().Spawn();
-            go = Instantiate(directionalExplosion, new Vector3(positionInGrid.x, positionInGrid.y + (i * tileDistance)), Quaternion.Euler(new Vector3(0, 0, 270)));
-            go.GetComponent<NetworkObject>().Spawn();
-            go = Instantiate(directionalExplosion, new Vector3(positionInGrid.x, positionInGrid.y - (i * tileDistance)), Quaternion.Euler(new Vector3(0, 0, 270)));
-            go.GetComponent<NetworkObject>().Spawn();
+            var explosionPos = new Vector3(positionInGrid.x + (i * tileDistance), positionInGrid.y);
+            if(!instantiateExplosion(explosionPos, 0))
+            {
+                break;
+            }
+        }
+        for (int i = 1; i < (explosionForce * 2) + 1; i++)
+        {
+            var explosionPos = new Vector3(positionInGrid.x - (i * tileDistance), positionInGrid.y);
+            if (!instantiateExplosion(explosionPos, 0))
+            {
+                break;
+            }
+        }
+        for (int i = 1; i < (explosionForce * 2) + 1; i++)
+        {
+            var explosionPos = new Vector3(positionInGrid.x, positionInGrid.y + (i * tileDistance));
+            if (!instantiateExplosion(explosionPos, 270))
+            {
+                break;
+            }
+        }
+        for (int i = 1; i < (explosionForce * 2) + 1; i++)
+        {
+            var explosionPos = new Vector3(positionInGrid.x, positionInGrid.y - (i * tileDistance));
+            if (!instantiateExplosion(explosionPos, 270))
+            {
+                break;
+            }
         }
     }
+
+    private bool instantiateExplosion(Vector3 explosionPos, int rotation)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(explosionPos, Vector2.up, 0f);
+        if (hit.collider != null)
+        {
+            //if raycast hits something at rand_pos, not empty
+            if (hit.collider.tag.Equals("concreteWall")){
+                return false;
+            }
+        }
+        GameObject go = Instantiate(directionalExplosion, explosionPos, Quaternion.Euler(new Vector3(0, 0, rotation)));
+        go.GetComponent<NetworkObject>().Spawn();
+        return true;
+    }
+
 
 
     private void createDirectionalExplosions(Vector3 positionInGrid)

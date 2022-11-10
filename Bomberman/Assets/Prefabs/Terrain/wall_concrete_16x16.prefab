@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3446796528861321665}
   m_Layer: 0
   m_Name: wall_concrete_16x16
-  m_TagString: wall
+  m_TagString: concreteWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
