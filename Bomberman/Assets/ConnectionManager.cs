@@ -26,7 +26,7 @@ public class ConnectionManager : MonoBehaviour
     }
     void Start()
     {
-        
+        ipText.text = "127.0.0.1";
     }
 
     // Update is called once per frame
@@ -45,7 +45,7 @@ public class ConnectionManager : MonoBehaviour
     {
         getConnectionData();
         this.m_NetworkManager.StartHost();
-        m_NetworkManager.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        m_NetworkManager.SceneManager.LoadScene("WaitingScene", LoadSceneMode.Single);
     }
 
     public void getConnectionData()

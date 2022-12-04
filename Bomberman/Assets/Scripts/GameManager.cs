@@ -4,11 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using System;
+using UnityEngine.UI;
 
 public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
+    //public static MatchManager matchInstance;
     public List<Player> players;
+    public int playersAlive;
+
+    //public Button buttonStartGame;
  
     private void Awake()
     {
@@ -25,6 +30,7 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Debug.Log("GameManager start");
     }
 
     // Update is called once per frame
@@ -36,8 +42,8 @@ public class GameManager : NetworkBehaviour
             {
                 return;
             }
-            Debug.Log("Começando jogo");
-            this.starGame();
+            //Debug.Log("Começando jogo");
+            this.startGame();
         }
     }
 
@@ -47,7 +53,7 @@ public class GameManager : NetworkBehaviour
         Debug.Log(mode);
     }
 
-    private void starGame()
+    public void startGame()
     {
         foreach (Player player in players)
         {
@@ -63,17 +69,94 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    public void restartGame()
+    {
+        SpanwerManager.instance.resetPositions();
+
+        foreach (Player player in players)
+        {
+            player.gameObject.SetActive(true);
+            ClientRpcParams clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new ulong[] { player.OwnerClientId }
+                }
+            };
+            restartPlayerClientRpc(player.OwnerClientId, clientRpcParams);
+        }
+    }
+
+    //public void startGameAndDisableButton()
+    //{
+    //    this.startGame();
+    //    //ButtonManager.instance.buttonIniciarPartida.gameObject.SetActive(false);
+    //}
+
+
+    [ClientRpc]
+    private void restartPlayerClientRpc(ulong id, ClientRpcParams clientRpcParams)
+    {
+       
+        foreach (var player in GameManager.instance.players)
+        {
+            if (player.OwnerClientId == id)
+            {
+                //Debug.Log("habilitando" + id);
+                //if (SceneManager.GetActiveScene().name.Equals("WaitingScene"))
+                //{
+                    //Debug.Log("ativando");
+                    player.gameObject.SetActive(true);
+                //}
+                //else
+                //{
+
+                player.enabled = false;
+                //}
+                return;
+            }
+        }
+        if (IsServer)
+        {
+            SpanwerManager.instance.choosePlayerspos();
+        }
+    }
+
     [ClientRpc]
     private void enablePlayerClientRpc(ulong id, ClientRpcParams clientRpcParams)
     {
         foreach (var player in GameManager.instance.players)
         {
-            if (player.OwnerClientId == id)
-            {
-                Debug.Log("habilitando" + id);
+            //if (player.OwnerClientId == id)
+            //{
+                //Debug.Log("habilitando" + id);
+                //if (SceneManager.GetActiveScene().name.Equals("WaitingScene"))
+                //{
+                //    Debug.Log("ativando");
+                //    player.gameObject.SetActive(true);
+                //}
+                //else
+                //{
+
                 player.enabled = true;
-                return;
-            }
+                //}
+            //    return;
+            //}
         }
     }
+
+
+    internal void onPlayerDeath()
+    {
+        if (IsServer)
+        {
+            //Debug.Log("Player Death");
+            this.playersAlive--;
+            if(playersAlive == 1)
+            {
+                //Debug.Log("Deveria mudar a cena");
+                NetworkManager.SceneManager.LoadScene("WaitingScene", LoadSceneMode.Single);
+            }
+        }
+        }
 }
