@@ -5,12 +5,14 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class ButtonManager : NetworkBehaviour
 {
     public static ButtonManager instance;
     public Button buttonIniciarPartida;
     public GameObject labelWaitingHost;
+    public string tagToDestroy; //
 
     private void Awake()
     {
@@ -29,14 +31,14 @@ public class ButtonManager : NetworkBehaviour
     {
         if (!IsHost)
         {
-            Debug.Log("n é server");
+            Debug.Log("n ï¿½ server");
             buttonIniciarPartida.gameObject.SetActive(false);
         }
         else
         {
             buttonIniciarPartida.gameObject.SetActive(true);
             labelWaitingHost.SetActive(false);
-            //Debug.Log("é server");
+            //Debug.Log("ï¿½ server");
         }
     }
 
@@ -53,6 +55,14 @@ public class ButtonManager : NetworkBehaviour
         if (IsServer)
         {
             GameManager.instance.playersAlive = GameManager.instance.players.Count;
+            //destruir powerups
+            GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag(tagToDestroy);
+
+            // DestrÃ³i todos os objetos encontrados
+            foreach (GameObject obj in objectsWithTag)
+            {
+                Destroy(obj);
+            }
         }
         foreach (var player in GameManager.instance.players)
         {
@@ -75,4 +85,5 @@ public class ButtonManager : NetworkBehaviour
     {
         labelWaitingHost.SetActive(false);
     }
+
 }

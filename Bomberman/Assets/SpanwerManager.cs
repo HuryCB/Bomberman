@@ -15,7 +15,7 @@ public class SpanwerManager : NetworkBehaviour
     {
         if (instance != null && instance != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
@@ -58,13 +58,16 @@ public class SpanwerManager : NetworkBehaviour
         //}
         //availablePositions = getSpawnPositionsServerRpc();
         //availablePositions = new List<Vector2>(spawnPositions);
+        int i = 0;
         foreach (Player player in GameManager.instance.players)
         {
-            var posinarray = Random.Range(0, spawnPositions.Count);
-            player.transform.position = spawnPositions[posinarray];
+            //var posinarray = Random.Range(0, spawnPositions.Count);
+            //var posinarray = 1;
+            player.transform.position = spawnPositions[i];
             //Debug.Log(spawnPositions);
-            Debug.Log("choosen pos: " + spawnPositions[posinarray]);
-            spawnPositions.RemoveAt(posinarray);
+            Debug.Log("choosen pos: " + spawnPositions[i]);
+            //spawnPositions.RemoveAt(posinarray);
+            i++;
         }
     }
 

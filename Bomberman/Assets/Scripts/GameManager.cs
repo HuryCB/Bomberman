@@ -152,7 +152,7 @@ public class GameManager : NetworkBehaviour
         {
             //Debug.Log("Player Death");
             this.playersAlive--;
-            if(playersAlive == 1)
+            if(playersAlive <= 1)
             {
                 //Debug.Log("Deveria mudar a cena");
                 NetworkManager.SceneManager.LoadScene("WaitingScene", LoadSceneMode.Single);
