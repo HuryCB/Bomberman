@@ -27,7 +27,7 @@ public class Bomb : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("is planting bomb");
+        //Debug.Log("is planting bomb");
         // coll = GetComponent<CircleCollider2D>();
         // sprite = GetComponent<SpriteRenderer>();
         // StartCoroutine(activeCollider());
@@ -53,7 +53,7 @@ public class Bomb : NetworkBehaviour
     }
     void explode()
     {
-        Debug.Log("Força da explosão " + GameManager.instance.players[0].explosionForce);
+        //Debug.Log("Força da explosão " + GameManager.instance.players[0].explosionForce);
         var positionInGrid = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
 
 
@@ -65,7 +65,7 @@ public class Bomb : NetworkBehaviour
                 return;
             }
             isBeingDestroyed = true;
-            Debug.Log("is destroying bomb");
+            //Debug.Log("is destroying bomb");
             this.gameObject.SetActive(false);
             Destroy(this.gameObject);
 
@@ -114,14 +114,14 @@ public class Bomb : NetworkBehaviour
     [ClientRpc]
     public void IncreaseOwnerAmountOfAvailableBombsClientRpc(ulong id, ClientRpcParams clientRpcParams = default)
     {
-        Debug.Log("buscando dono " + owner);
+        //Debug.Log("buscando dono " + owner);
 
         // if (IsOwner) return;
         foreach (var player in GameManager.instance.players)
         {
             if (player.OwnerClientId == id)
             {
-                Debug.Log("o dono " + owner);
+                //Debug.Log("o dono " + owner);
                 player.amountOfAvailableBombs++;
                 return;
             }

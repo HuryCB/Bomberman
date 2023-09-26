@@ -29,10 +29,10 @@ public class DestructibleWall : NetworkBehaviour
                 return;
             }
             isBeingDestroyed = true;
-            Debug.Log("parede colidiu com explosao");
+            //Debug.Log("parede colidiu com explosao");
             if (IsServer)
             {
-                Debug.Log("destruindo objeto");
+                //Debug.Log("destruindo objeto");
 
 
                 if (powerUpToInstantiate < loot.Count)

@@ -38,7 +38,7 @@ public class FloorManager : NetworkBehaviour
             {
                 if((y > -1 && y < height ) && (x > -1 && x < width))
                 {
-                    Debug.Log("avoid pos " + x + "," + y);
+                    //Debug.Log("avoid pos " + x + "," + y);
                     continue;
                 }
                 GameObject go = Instantiate(undestroyableWall, new Vector3(x, y, 0), Quaternion.identity);

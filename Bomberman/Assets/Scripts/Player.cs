@@ -53,7 +53,7 @@ public class Player : NetworkBehaviour
         this.enabled = false;
         rb = GetComponent<Rigidbody2D>();
         stepSound = GetComponent<AudioSource>();
-        Debug.Log(OwnerClientId);
+        //Debug.Log(OwnerClientId);
     }
 
     // Update is called once per frame
@@ -180,7 +180,7 @@ public class Player : NetworkBehaviour
                 PowerUp powerup = other.gameObject.GetComponent<PowerUp>();
                 powerup.destroyServerRpc();
                 this.explosionForce++;
-                Debug.Log("relou no power up: " + powerup);
+                //Debug.Log("relou no power up: " + powerup);
                 break;
             case TagsEnum.explosion:
                 this.Die();
@@ -197,7 +197,17 @@ public class Player : NetworkBehaviour
     {
         //this.enabled = false;
         //sprite.enabled = false;
+        if (!this.gameObject.activeSelf)
+        {
+            return;
+        }
         this.gameObject.SetActive(false);
+        if (IsServer)
+        {
+            this.gameObject.SetActive(false);
+            //Debug.Log(OwnerClientId);
+            GameManager.instance.onPlayerDeath();
+        }
     }
 
 
