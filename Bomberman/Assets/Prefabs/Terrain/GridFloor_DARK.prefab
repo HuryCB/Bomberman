@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8258519791618867657}
   - component: {fileID: 8258519791618867656}
   - component: {fileID: 4549594479569874822}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GridFloor_DARK
   m_TagString: Untagged
   m_Icon: {fileID: 0}

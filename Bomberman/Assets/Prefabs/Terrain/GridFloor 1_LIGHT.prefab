@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8258519791618867656}
   - component: {fileID: -6327913938017932114}
   - component: {fileID: 5685909827115753213}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GridFloor 1_LIGHT
   m_TagString: wall
   m_Icon: {fileID: 0}
