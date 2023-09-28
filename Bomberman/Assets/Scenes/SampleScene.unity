@@ -794,6 +794,7 @@ MonoBehaviour:
   floor0Dark: {fileID: 8258519791618867655, guid: 0ab665eddc899cd44827eefbd0463675, type: 3}
   floor1Light: {fileID: 8258519791618867655, guid: af81e6b02c154f749b0986eaa4f0f173, type: 3}
   woodWall: {fileID: 443659379484683363, guid: b60ae08326ce2684a9b8144a64266ebb, type: 3}
+  esteira: {fileID: 4839539366618728796, guid: fbc49de42972383449dd292eb7ed7312, type: 3}
   undestroyableWall: {fileID: 8014176726142421923, guid: f8ba48bb403b4644a97d748a668fbd62, type: 3}
   floorType: {fileID: 8258519791618867655, guid: af81e6b02c154f749b0986eaa4f0f173, type: 3}
   width: 10

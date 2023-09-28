@@ -11,7 +11,7 @@ public class Esteira : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("bomb") || other.CompareTag("Player"))
+        if (other.CompareTag("bomb"))
         {
             // Inicie o movimento da bomba na direção da esteira
             MoveBomb(other.gameObject, true);
@@ -20,7 +20,7 @@ public class Esteira : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("bomb") || other.CompareTag("Player"))
+        if (other.CompareTag("bomb"))
         {
             // Pare o movimento da bomba
             MoveBomb(other.gameObject, false);

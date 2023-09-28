@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 2083100452, guid: 36253b06284300247b9a8fd35be4c2a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -147,9 +147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60447a83321f64a45972cf7f42ba6d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loot:
-  - {fileID: 5329855041813784300, guid: c057c708b5d2dc1499088066b85b3cdb, type: 3}
-  powerUpToInstantiate: 0
+  powerUpOptions:
+  - powerUpPrefab: {fileID: 5329855041813784300, guid: c057c708b5d2dc1499088066b85b3cdb, type: 3}
+    spawnProbability: 0.2
+  - powerUpPrefab: {fileID: 5329855041813784300, guid: 4ce61b5fcaad54c4daa9a28f133079ae, type: 3}
+    spawnProbability: 0.2
+  - powerUpPrefab: {fileID: 5329855041813784300, guid: 519bbd1e14df2ea43bff1ea858a913cf, type: 3}
+    spawnProbability: 0.2
   isBeingDestroyed: 0
 --- !u!114 &2671105181422417000
 MonoBehaviour:

@@ -8,6 +8,7 @@ public class FloorManager : NetworkBehaviour
     public GameObject floor0Dark;
     public GameObject floor1Light;
     public GameObject woodWall;
+    public GameObject esteira;
 
     public GameObject undestroyableWall;
 
@@ -61,12 +62,23 @@ public class FloorManager : NetworkBehaviour
                 //{
                 //    continue;
                 //}
+
+
                 GameObject go = Instantiate(floorType, new Vector3(x, y, 0), Quaternion.identity);
                 go.GetComponent<NetworkObject>().Spawn();
                 changeFloorType();
+
+                int esteiraSpawnChance = new System.Random().Next(0, 100);
+
+                // Verifique se o número gerado está dentro do intervalo de 0 a 9 (10% de chance)
+                if (esteiraSpawnChance <= 9)
+                {
+                    go = Instantiate(esteira, new Vector3(x, y, 0), Quaternion.identity);
+                    go.GetComponent<NetworkObject>().Spawn();
+                }
                 //if (floorType.Equals(floor0Dark))
                 //{
-                    if((x == 0 || x == width-1) && biggerYConditionToAvoid(y,height))
+                if ((x == 0 || x == width-1) && biggerYConditionToAvoid(y,height))
                     {
                         continue;
                     }else if((x == 1 || x == width -2) && yConditionToAvoid(y, height))
