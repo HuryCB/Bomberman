@@ -1,25 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-
 using Unity.Netcode;
+
+[Serializable]
+public class PowerUpData
+{
+    public GameObject powerUpPrefab;
+    [Range(0f, 1f)]
+    public float spawnProbability;
+}
 
 public class DestructibleWall : NetworkBehaviour
 {
-    public List<GameObject> loot;
-    public int powerUpToInstantiate;
+    public PowerUpData[] powerUpOptions;
     public bool isBeingDestroyed = false;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        powerUpToInstantiate = Random.Range(0, loot.Count * 2);
+        // Garanta que as probabilidades se somem para 1 (100%)
+        NormalizeProbabilities();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void NormalizeProbabilities()
     {
+        float totalProbability = 1f;
 
+        foreach (PowerUpData powerUpData in powerUpOptions)
+        {
+            totalProbability += powerUpData.spawnProbability;
+        }
+
+        // Normalize as probabilidades para que somem 1
+        if (totalProbability > 0f)
+        {
+            foreach (PowerUpData powerUpData in powerUpOptions)
+            {
+                powerUpData.spawnProbability /= totalProbability;
+            }
+        }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag.Equals("explosion"))
@@ -29,36 +49,36 @@ public class DestructibleWall : NetworkBehaviour
                 return;
             }
             isBeingDestroyed = true;
-            //Debug.Log("parede colidiu com explosao");
+
             if (IsServer)
             {
-                //Debug.Log("destruindo objeto");
+                float randomValue = UnityEngine.Random.value; // Valor aleatório entre 0 e 1
 
+                // Verifique qual power-up deve ser spawnado com base nas probabilidades
+                int chosenPowerUpIndex = -1;
+                float cumulativeProbability = 0f;
 
-                if (powerUpToInstantiate < loot.Count)
+                for (int i = 0; i < powerUpOptions.Length; i++)
                 {
-                    GameObject go = Instantiate(loot[powerUpToInstantiate], this.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                    cumulativeProbability += powerUpOptions[i].spawnProbability;
+
+                    if (randomValue <= cumulativeProbability)
+                    {
+                        chosenPowerUpIndex = i;
+                        break;
+                    }
+                }
+
+                // Certifique-se de que um power-up seja escolhido antes de criá-lo
+                if (chosenPowerUpIndex >= 0)
+                {
+                    GameObject go = Instantiate(powerUpOptions[chosenPowerUpIndex].powerUpPrefab, transform.position, Quaternion.identity);
                     go.GetComponent<NetworkObject>().Spawn();
                 }
-                Destroy(this.gameObject);
-                return;
+
+                // Destrua a parede após escolher o power-up
+                Destroy(gameObject);
             }
-            // else
-            // {
-            //     Debug.Log("server destroy");
-            //     DestroyServerRpc();
-            // }
         }
     }
-
-    // [ServerRpc(RequireOwnership = false)]
-    // private void DestroyServerRpc()
-    // {
-    //     foreach (var item in loot)
-    //     {
-    //         GameObject go = Instantiate(item, this.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
-    //         go.GetComponent<NetworkObject>().Spawn();
-    //     }
-    //     Destroy(this.gameObject);
-    // }
 }

@@ -72,6 +72,8 @@ public class GameManager : NetworkBehaviour
     public void restartGame()
     {
         SpanwerManager.instance.resetPositions();
+        //teste
+        SpanwerManager.instance.choosePlayerspos();
 
         foreach (Player player in players)
         {
@@ -107,6 +109,9 @@ public class GameManager : NetworkBehaviour
                 //{
                     //Debug.Log("ativando");
                     player.gameObject.SetActive(true);
+                player.walkSpeed = 2.0f;
+                player.amountOfAvailableBombs = 1;
+                player.explosionForce = 1;
                 //}
                 //else
                 //{

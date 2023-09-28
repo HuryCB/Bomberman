@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3982522552733381370}
   - component: {fileID: 6268073508899316990}
   - component: {fileID: 3446796528861321665}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: wall_concrete_16x16
   m_TagString: concreteWall
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -745472336, guid: 36253b06284300247b9a8fd35be4c2a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

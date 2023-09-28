@@ -76,7 +76,7 @@ public class Player : NetworkBehaviour
         {
             return;
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(plantBomb());
         }
@@ -133,16 +133,16 @@ public class Player : NetworkBehaviour
 
     private void checkRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            speed = runSpeed;
-            stepSound.pitch = runSpeed / walkSpeed;
-        }
-        else
-        {
+        //if (Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    speed = runSpeed;
+        //    stepSound.pitch = runSpeed / walkSpeed;
+        //}
+        //else
+        //{
             speed = walkSpeed;
             stepSound.pitch = walkSpeed / walkSpeed;
-        }
+        //}
     }
     private void FixedUpdate()
     {
@@ -178,8 +178,20 @@ public class Player : NetworkBehaviour
             case "PowerUp":
 
                 PowerUp powerup = other.gameObject.GetComponent<PowerUp>();
+
+                switch (powerup.powerUpEnum)
+                {
+                    case PowersEnum.ExplosionForce:
+                        this.explosionForce++;
+                    break;
+                    case PowersEnum.MoreBombPowerUp:
+                        this.amountOfAvailableBombs++;
+                    break;
+                    case PowersEnum.SpeedPowerUp:
+                        this.walkSpeed++;
+                    break;
+                }
                 powerup.destroyServerRpc();
-                this.explosionForce++;
                 //Debug.Log("relou no power up: " + powerup);
                 break;
             case TagsEnum.explosion:
