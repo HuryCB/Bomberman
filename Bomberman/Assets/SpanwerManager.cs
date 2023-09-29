@@ -10,7 +10,8 @@ public class SpanwerManager : NetworkBehaviour
     public List<Vector2> spawnPositions;
     public List<Vector2> readOnlySpawnPositions;
     private List<Vector2> availablePositions;
-    
+    public List<string> nicknames;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -49,11 +50,31 @@ public class SpanwerManager : NetworkBehaviour
         spawnPositions = new List<Vector2>(readOnlySpawnPositions);
         availablePositions = new List<Vector2>(spawnPositions);
     }
+
+    public string GetRandomNickname()
+    {
+        if (nicknames.Count == 0)
+        {
+            Debug.LogWarning("Esgotou a lista de nomes disponíveis!");
+            return "Sem Nome";
+        }
+
+        // Escolhe um índice de nome aleatório da lista disponível
+        int randomIndex = UnityEngine.Random.Range(0, nicknames.Count);
+        string selectedName = nicknames[randomIndex];
+
+        // Remove o nome selecionado da lista para que não seja usado novamente
+        nicknames.RemoveAt(randomIndex);
+
+        return selectedName;
+    }
+
     public void choosePlayerspos()
     {
-        //if (IsServer)
+        //if (!IsServer)
         //{
-
+        //    return;
+        //}
         //spawnPositions = readOnlySpawnPositions;
         //}
         //availablePositions = getSpawnPositionsServerRpc();
@@ -64,6 +85,7 @@ public class SpanwerManager : NetworkBehaviour
             //var posinarray = Random.Range(0, spawnPositions.Count);
             //var posinarray = 1;
             player.transform.position = spawnPositions[i];
+            player.txtName.text = i.ToString();
             //Debug.Log(spawnPositions);
             Debug.Log("choosen pos: " + spawnPositions[i]);
             //spawnPositions.RemoveAt(posinarray);
