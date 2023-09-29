@@ -12,6 +12,7 @@ public class GameManager : NetworkBehaviour
     //public static MatchManager matchInstance;
     public List<Player> players;
     public int playersAlive;
+ 
 
     //public Button buttonStartGame;
  
@@ -53,11 +54,17 @@ public class GameManager : NetworkBehaviour
         Debug.Log(mode);
     }
 
+   
+
     public void startGame()
     {
+        if (!IsServer)
+        {
+            return;
+        }
         foreach (Player player in players)
         {
-           
+
             ClientRpcParams clientRpcParams = new ClientRpcParams
             {
                 Send = new ClientRpcSendParams
@@ -134,16 +141,16 @@ public class GameManager : NetworkBehaviour
         {
             //if (player.OwnerClientId == id)
             //{
-                //Debug.Log("habilitando" + id);
-                //if (SceneManager.GetActiveScene().name.Equals("WaitingScene"))
-                //{
-                //    Debug.Log("ativando");
-                //    player.gameObject.SetActive(true);
-                //}
-                //else
-                //{
-
-                player.enabled = true;
+            //Debug.Log("habilitando" + id);
+            //if (SceneManager.GetActiveScene().name.Equals("WaitingScene"))
+            //{
+            //    Debug.Log("ativando");
+            //    player.gameObject.SetActive(true);
+            //}
+            //else
+            //{
+            //player.txtName.text = nome;
+            player.enabled = true;
                 //}
             //    return;
             //}

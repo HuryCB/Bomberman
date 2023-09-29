@@ -159,6 +159,21 @@ MonoBehaviour:
   - {x: 9, y: 0}
   - {x: 9, y: 9}
   readOnlySpawnPositions: []
+  nicknames:
+  - Tomas Turbando
+  - Kevim Mamar
+  - Equipe Iroca
+  - Paulo Brificado
+  - Deide Costas
+  - TwoPayPal
+  - Team Rabo
+  - Euma Maria
+  - Igor Chu Passeios
+  - Mia Regassa
+  - Power Guido
+  - "M\xE9xico Lindo"
+  - Paula Traz
+  - Giuseppe Cadura
 --- !u!4 &48585035
 Transform:
   m_ObjectHideFlags: 0
@@ -733,6 +748,7 @@ MonoBehaviour:
   floor0Dark: {fileID: 8258519791618867655, guid: 0ab665eddc899cd44827eefbd0463675, type: 3}
   floor1Light: {fileID: 8258519791618867655, guid: af81e6b02c154f749b0986eaa4f0f173, type: 3}
   woodWall: {fileID: 443659379484683363, guid: b60ae08326ce2684a9b8144a64266ebb, type: 3}
+  esteira: {fileID: 0}
   undestroyableWall: {fileID: 8014176726142421923, guid: f8ba48bb403b4644a97d748a668fbd62, type: 3}
   floorType: {fileID: 8258519791618867655, guid: af81e6b02c154f749b0986eaa4f0f173, type: 3}
   width: 10
@@ -1134,6 +1150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonIniciarPartida: {fileID: 1696827010}
   labelWaitingHost: {fileID: 632769788}
+  tagToDestroy: 
 --- !u!4 &1635094062
 Transform:
   m_ObjectHideFlags: 0

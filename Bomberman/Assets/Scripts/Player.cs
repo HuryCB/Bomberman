@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
+using TMPro;
 
 public class Player : NetworkBehaviour
 {
@@ -24,6 +25,7 @@ public class Player : NetworkBehaviour
 
     public int explosionForce = 1;
     public SpriteRenderer sprite;
+    public TMP_Text txtName;
 
 
     public bool canPlantBomb()

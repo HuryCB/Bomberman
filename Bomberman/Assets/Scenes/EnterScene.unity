@@ -289,6 +289,21 @@ MonoBehaviour:
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 4839539366618728796, guid: fbc49de42972383449dd292eb7ed7312, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 5329855041813784300, guid: 519bbd1e14df2ea43bff1ea858a913cf, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 5329855041813784300, guid: 4ce61b5fcaad54c4daa9a28f133079ae, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -874,6 +889,78 @@ PrefabInstance:
     - target: {fileID: 890698785, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 474337181
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[0]
+      value: Tomas Turbando
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[1]
+      value: Kevim Mamar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[2]
+      value: Equipe Iroca
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[3]
+      value: Paulo Brificado
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[4]
+      value: 'Leo Fizza Now '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[5]
+      value: Ben Gadura
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[6]
+      value: Power Guido
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[7]
+      value: TwoPaypal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[8]
+      value: "M\xE9xico Lindo"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[9]
+      value: "Mia Rega\xE7a"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[10]
+      value: Team Rabo
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[11]
+      value: Deide Costa
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[12]
+      value: "Paula Tr\xE1s"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[13]
+      value: Euma Maria
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[14]
+      value: Fabiano Chu Passeios
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[15]
+      value: Giuseppe Cadura
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251026040978832024, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
+      propertyPath: nicknames.Array.data[16]
+      value: Giuseppe Cadura
       objectReference: {fileID: 0}
     - target: {fileID: 8251026040978832025, guid: 07f767c874e7add41a9f549f3ac17010, type: 3}
       propertyPath: m_RootOrder

@@ -1,14 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class Esteira : MonoBehaviour
+
+public class Esteira : NetworkBehaviour
 {
-    public enum Direcao { Esquerda, Direita, Cima, Baixo };
+    public enum Direcao { Direita, Cima,Esquerda,Baixo };
     public Direcao direcaoMovimento;
     public float velocidadeEsteira;
 
+    private void Start()
+    {
+        if (IsServer)
+        {
+            direcaoMovimento = (Direcao)Random.Range(0, Direcao.GetValues(typeof(Direcao)).Length);
 
+            // Escolhe uma velocidade aleatória de 1 a 3
+            velocidadeEsteira = Random.Range(1, 4); // Valores entre 1 e 3 (inclusive)
+            switch (direcaoMovimento)
+            {
+                case Direcao.Direita:
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    break;
+                case Direcao.Cima:
+                    transform.rotation = Quaternion.Euler(0, 0, 90);
+                    break;
+                case Direcao.Esquerda:
+                    transform.rotation = Quaternion.Euler(0, 0, 180);
+                    break;
+                case Direcao.Baixo:
+                    transform.rotation = Quaternion.Euler(0, 0, 270);
+                    break;
+            }
+        }
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("bomb"))
