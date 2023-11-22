@@ -12,10 +12,10 @@ public class GameManager : NetworkBehaviour
     //public static MatchManager matchInstance;
     public List<Player> players;
     public int playersAlive;
- 
+
 
     //public Button buttonStartGame;
- 
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -43,7 +43,7 @@ public class GameManager : NetworkBehaviour
             {
                 return;
             }
-            //Debug.Log("Começando jogo");
+            //Debug.Log("Comeï¿½ando jogo");
             this.startGame();
         }
     }
@@ -54,14 +54,14 @@ public class GameManager : NetworkBehaviour
         Debug.Log(mode);
     }
 
-   
+
 
     public void startGame()
     {
-        if (!IsServer)
-        {
-            return;
-        }
+        //if (!IsServer)
+        //{
+        //    return;
+        //}
         foreach (Player player in players)
         {
 
@@ -94,6 +94,35 @@ public class GameManager : NetworkBehaviour
             };
             restartPlayerClientRpc(player.OwnerClientId, clientRpcParams);
         }
+
+        restartPlayerServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void restartPlayerServerRpc()
+    {
+        foreach (var player in GameManager.instance.players)
+        {
+            Debug.Log("restar server rpc");
+            // if (player.OwnerClientId == id)
+            // {
+            //Debug.Log("habilitando" + id);
+            //if (SceneManager.GetActiveScene().name.Equals("WaitingScene"))
+            //{
+            //Debug.Log("ativando");
+            player.gameObject.SetActive(true);
+            player.walkSpeed = 2.0f;
+            player.amountOfAvailableBombs = 1;
+            player.explosionForce = 1;
+            //}
+            //else
+            //{
+
+            player.enabled = false;
+            //}
+            //     return;
+            // }
+        }
     }
 
     //public void startGameAndDisableButton()
@@ -106,16 +135,16 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void restartPlayerClientRpc(ulong id, ClientRpcParams clientRpcParams)
     {
-       
+
         foreach (var player in GameManager.instance.players)
         {
-            if (player.OwnerClientId == id)
-            {
+            // if (player.OwnerClientId == id)
+            // {
                 //Debug.Log("habilitando" + id);
                 //if (SceneManager.GetActiveScene().name.Equals("WaitingScene"))
                 //{
-                    //Debug.Log("ativando");
-                    player.gameObject.SetActive(true);
+                //Debug.Log("ativando");
+                player.gameObject.SetActive(true);
                 player.walkSpeed = 2.0f;
                 player.amountOfAvailableBombs = 1;
                 player.explosionForce = 1;
@@ -125,12 +154,12 @@ public class GameManager : NetworkBehaviour
 
                 player.enabled = false;
                 //}
-                return;
-            }
+            //     return;
+            // }
         }
+        SpanwerManager.instance.choosePlayerspos();
         if (IsServer)
         {
-            SpanwerManager.instance.choosePlayerspos();
         }
     }
 
@@ -151,7 +180,7 @@ public class GameManager : NetworkBehaviour
             //{
             //player.txtName.text = nome;
             player.enabled = true;
-                //}
+            //}
             //    return;
             //}
         }
@@ -164,11 +193,11 @@ public class GameManager : NetworkBehaviour
         {
             //Debug.Log("Player Death");
             this.playersAlive--;
-            if(playersAlive <= 1)
+            if (playersAlive <= 1)
             {
                 //Debug.Log("Deveria mudar a cena");
                 NetworkManager.SceneManager.LoadScene("WaitingScene", LoadSceneMode.Single);
             }
         }
-        }
+    }
 }
