@@ -6,7 +6,7 @@ using Unity.Netcode;
 
 public class Esteira : NetworkBehaviour
 {
-    public enum Direcao { Direita, Cima,Esquerda,Baixo };
+    public enum Direcao { Direita, Cima, Esquerda, Baixo };
     public Direcao direcaoMovimento;
     public float velocidadeEsteira;
 
@@ -16,30 +16,38 @@ public class Esteira : NetworkBehaviour
         {
             direcaoMovimento = (Direcao)Random.Range(0, Direcao.GetValues(typeof(Direcao)).Length);
 
-            // Escolhe uma velocidade aleatória de 1 a 3
+            // Escolhe uma velocidade aleatï¿½ria de 1 a 3
+            Quaternion tempRotation = transform.rotation;
             velocidadeEsteira = Random.Range(1, 4); // Valores entre 1 e 3 (inclusive)
             switch (direcaoMovimento)
             {
                 case Direcao.Direita:
-                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    tempRotation = Quaternion.Euler(0, 0, 0);
                     break;
                 case Direcao.Cima:
-                    transform.rotation = Quaternion.Euler(0, 0, 90);
+                    tempRotation = Quaternion.Euler(0, 0, 90);
                     break;
                 case Direcao.Esquerda:
-                    transform.rotation = Quaternion.Euler(0, 0, 180);
+                    tempRotation = Quaternion.Euler(0, 0, 180);
                     break;
                 case Direcao.Baixo:
-                    transform.rotation = Quaternion.Euler(0, 0, 270);
+                    tempRotation = Quaternion.Euler(0, 0, 270);
                     break;
             }
+            setRotationClientRpc(tempRotation);
         }
+    }
+
+    [ClientRpc]
+    private void setRotationClientRpc(Quaternion rotation)
+    {
+        transform.rotation = rotation;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("bomb"))
         {
-            // Inicie o movimento da bomba na direção da esteira
+            // Inicie o movimento da bomba na direï¿½ï¿½o da esteira
             MoveBomb(other.gameObject, true);
         }
     }
@@ -59,7 +67,7 @@ public class Esteira : NetworkBehaviour
 
         if (rb != null)
         {
-            //Direcao direcaoMovimento = Direcao.Esquerda; // Defina a direção padrão aqui
+            //Direcao direcaoMovimento = Direcao.Esquerda; // Defina a direï¿½ï¿½o padrï¿½o aqui
 
             switch (direcaoMovimento)
             {
